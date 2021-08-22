@@ -4,7 +4,7 @@
   <button @click="reset()" v-else>Reset</button>
   <h1>Current Position: {{previousPosition}} --> {{currentPosition}}</h1>
   <h2>Dice Number: {{diceNum}}</h2>
-  <h1 v-if="message !== ''">Message:{{message}}</h1>
+  <span v-if="message !== ''">Message: </span> <span v-if="message !== ''"   :style="specialCollor">{{message}}</span>
 
   <h3>Move count: {{moveCount}}</h3>
   <h3>Ladder count: {{ladderCount}}</h3>
@@ -51,6 +51,7 @@ export default {
       gameOver: false,
       ladderCount: 0,
       snakeCount: 0,
+      specialCollor: null,
       
       specialPostion:[{start:2, end: 38 },{start: 7, end: 14 }, {start:16 , end:6 },{start:21,end:42},{start:36,end:44},{start:41,end:42},{start:46,end:25},{start:51,end:67},{start:62,end:19},{start:64,end:60},{start:74,end:53},{start:78,end:98},{start:87,end:24},{start:92,end:88},{start:95,end:75},{start:99,end:80}],
 
@@ -88,10 +89,12 @@ export default {
         if(this.currentPosition === this.specialPostion[counter].start){
           this.currentPosition = this.specialPostion[counter].end
           if(this.snakeCheck(this.specialPostion[counter].start,this.specialPostion[counter].end)){
-            this.message = "Snake just ate you "
+            this.message = "Snake"
+            this.specialCollor = 'color:red';
             this.snakeCount++
           }else{
-            this.message = "You goin up with ladder"
+            this.message = "Ladder"
+            this.specialCollor = 'color:blue';
             this.ladderCount++
           }
           flag = true
